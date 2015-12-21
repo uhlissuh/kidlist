@@ -1,0 +1,22 @@
+{
+  "name": "kidlist",
+  "description": "Smart waiting lists for child care enrollment",
+  "main": "index.js",
+  "authors": [
+    "Alissa"
+  ],
+  "license": "mit",
+  "homepage": "https://github.com/uhlissuh/kidlist",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}

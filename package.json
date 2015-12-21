@@ -1,0 +1,22 @@
+{
+  "name": "kidlist",
+  "version": "1.0.0",
+  "description": "Smart waiting lists for child care enrollment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uhlissuh/kidlist.git"
+  },
+  "author": "Alissa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uhlissuh/kidlist/issues"
+  },
+  "homepage": "https://github.com/uhlissuh/kidlist",
+  "dependencies": {
+    "bower": "^1.7.1"
+  }
+}

@@ -1,0 +1,46 @@
+.main-header {
+  padding: 10px 0px;
+}
+
+.kid-logo {
+  float: left;
+  margin-right: 2px;
+}
+
+.site-name {
+  color: #9AC6AC;
+}
+
+.sign-in-link {
+  margin-top: 15px;
+  float: right;
+  color: #9AC6AC;
+}
+
+.main-nav {
+  background-color: #DE5443;
+}
+
+nav a {
+  color: #F5D285;
+  font-size: 16px;
+}
+
+.slogan-box {
+  background-image: url("./images/kidscoloring.jpg");
+  height: 700px;
+  /*margin-top: 20px;*/
+  padding-top: 140px;
+  color: white;
+  text-align: center;
+}
+
+.main-slogan {
+
+  font-size: 56px;
+}
+
+.sub-slogan {
+
+  font-size: 30px;
+}

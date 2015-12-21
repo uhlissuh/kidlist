@@ -1,5 +1,7 @@
 .main-header {
   padding: 10px 0px;
+  background-color: white;
+  border-bottom: 1px solid #AAAAAA;
 }
 
 .kid-logo {
@@ -8,39 +10,36 @@
 }
 
 .site-name {
-  color: #9AC6AC;
+  color: #F0693E;
 }
 
 .sign-in-link {
   margin-top: 15px;
   float: right;
-  color: #9AC6AC;
+  color: #F0693E;
 }
 
-.main-nav {
-  background-color: #DE5443;
-}
-
-nav a {
-  color: #F5D285;
-  font-size: 16px;
-}
-
-.slogan-box {
-  background-image: url("./images/kidscoloring.jpg");
+.splash-image {
+  background-image: url("./images/children_with_balls.jpg");
   height: 700px;
-  /*margin-top: 20px;*/
-  padding-top: 140px;
   color: white;
+}
+
+.slogans {
+  margin-top: 100px;
   text-align: center;
+  text-shadow: 0 1px 0 #666;
 }
 
 .main-slogan {
-
   font-size: 56px;
 }
 
 .sub-slogan {
-
   font-size: 30px;
+}
+
+.register-button {
+  margin-top: 20px;
+  font-size: 20px;
 }

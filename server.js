@@ -15,6 +15,10 @@ app.get("/", function(req, res) {
   res.render('home');
 });
 
+app.get("/join", function(req, res) {
+  res.render('join');
+})
+
 var server = http.createServer(app);
 server.listen(8080);
 console.log("server running on 8080");

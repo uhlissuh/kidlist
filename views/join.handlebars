@@ -1,0 +1,81 @@
+
+
+<form method="post" action="/my-handling-form-page">
+  <h3> General Information</h3>
+  <div>
+    <label for="name"> Your First and Last Name:</label>
+    <input type="text" id="name" />
+  </div>
+  <div>
+      <label for="mail">E-mail:</label>
+      <input type="email" id="mail" />
+  </div>
+  <div>
+      <label for="business-name">Name of Business:</label>
+      <input type="text" id="biz-name" />
+  </div>
+  <div>
+      <label for="city">City:</label>
+      <input type="text" id="city" />
+  </div>
+  <div>
+      <label for="state">State:</label>
+      <input type="text" id="state" />
+  </div>
+  <h3>About the Structure of your Daycare/Preschool</h3>
+
+<div class="age-groups-div">
+  <div class="age-group-div">
+    <label for="age-group">Age Group:</label>
+    <select name="Years">
+      <option value="" disabled="disabled" selected="selected">Years</option>
+      <option value="0">0</option>
+      <option value=".5">.5</option>
+      <option value="1">1</option>
+      <option value="1.5">1.5</option>
+      <option value="2">2</option>
+      <option value="2.5">2.5</option>
+      <option value="3">3</option>
+      <option value="3.5">3.5</option>
+      <option value="4">4</option>
+      <option value="4.5">4.5</option>
+      <option value="5">5</option>
+      <option value="5.5">5.5</option>
+      <option value="6">6</option>
+    </select>
+    to
+    <select name="Years">
+      <option value="" disabled="disabled" selected="selected">Years</option>
+      <option value="0">0</option>
+      <option value=".5">.5</option>
+      <option value="1">1</option>
+      <option value="1.5">1.5</option>
+      <option value="2">2</option>
+      <option value="2.5">2.5</option>
+      <option value="3">3</option>
+      <option value="3.5">3.5</option>
+      <option value="4">4</option>
+      <option value="4.5">4.5</option>
+      <option value="5">5</option>
+      <option value="5.5">5.5</option>
+      <option value="6">6</option>
+    </select>
+    <div>
+      <label for="number-of-students">Number of children in this group:</label>
+      <input type="text" id="number-of-children" />
+    </div>
+  </div>
+</div>
+
+
+  <a id="add-age-group-bttn">Add another age group</a>
+
+  <script>
+    document.getElementById("add-age-group-bttn").addEventListener("click", function() {
+      var ageGroupDiv = document.getElementsByClassName("age-group-div")[0];
+      var newAgeGroupDiv = ageGroupDiv.cloneNode(true);
+      ageGroupDiv.parentElement.appendChild(newAgeGroupDiv);
+    });
+  </script>
+
+</form>

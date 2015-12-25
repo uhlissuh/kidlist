@@ -44,3 +44,22 @@
   margin-top: 20px;
   font-size: 20px;
 }
+
+.form-box {
+  margin-top: 70px;
+  background: rgba(245, 174, 163,.5);
+  border-radius: 2px;
+  padding: 20px;
+  color: #fff;
+  border-radius: 15px;
+}
+
+.join-page {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #F88379;
+}

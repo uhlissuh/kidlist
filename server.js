@@ -3,6 +3,7 @@ var fs = require("fs");
 var express = require("express");
 var bodyParser = require("body-parser");
 var handlebars = require("express-handlebars");
+var database = require("./database");
 
 var app = express();
 
@@ -18,6 +19,13 @@ app.get("/", function(req, res) {
 app.get("/join", function(req, res) {
   res.render('join');
 })
+
+app.post("/join", function(req, res) {
+  database.createUser(req.body, function(err) {
+    res.writeHead(301, {'location' : "/"});
+    res.end();
+  });
+});
 
 var server = http.createServer(app);
 server.listen(8080);

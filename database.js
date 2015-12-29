@@ -23,3 +23,28 @@ exports.createUser = function(data, callback) {
     });
   });
 }
+
+exports.signInUser = function(data, callback) {
+  pg.connect(conString, function(err, client, done) {
+    client.query(
+      "select * from users where email=$1 limit 1",
+      [data.email],
+      function(err, result) {
+        if (err) {
+          console.log(err);
+        } else if (result.rows.length === 0) {
+          var id = null;
+          callback(err, id);
+        } else {
+          bcrypt.compare(data.password, result.rows[0].password_hash, function(err, res) {
+            if (res === true) {
+              id = result.rows[0].id;
+              callback(err, id);
+            }
+            done();
+          });
+        }
+      }
+    )
+  })
+}

@@ -1,0 +1,25 @@
+<div class="login-page"></div>
+
+
+
+
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
+    {{#if error_message}}
+      <div class="alert alert-warning">
+        {{error_message}}
+      </div>
+    {{/if}}
+    <form class="form-box" method="post">
+      <div class="form-group">
+          <label for="mail">E-mail:</label>
+          <input class="form-control" type="email" name="email" />
+      </div>
+      <div class="form-group">
+          <label for="password">Password:</label>
+          <input class="form-control" type="password" name="password" />
+      </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

@@ -93,7 +93,76 @@
             <label for="confirm-password">Confirm Password:</label>
             <input class="form-control" type="password" name="confirm_password" />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <hr/>
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Setting Your Care Center's Age Groups</h4>
+
+          </div>
+        </div>
+        <div class="age-group-parent">
+          <div class="row age-group-div">
+            <div class="form-group col-md-3">
+              <label for="age-group">Minimum Age:</label>
+              <select class="form-control"name="Years">
+                <option value="" disabled="disabled" selected="selected">Years</option>
+                <option value="0">0</option>
+                <option value=".5">.5</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
+                <option value="2.5">2.5</option>
+                <option value="3">3</option>
+                <option value="3.5">3.5</option>
+                <option value="4">4</option>
+                <option value="4.5">4.5</option>
+                <option value="5">5</option>
+                <option value="5.5">5.5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="age-group">Maximum Age:</label>
+              <select class="form-control" name="Years">
+                <option value="" disabled="disabled" selected="selected">Years</option>
+                <option value="0">0</option>
+                <option value=".5">.5</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
+                <option value="2.5">2.5</option>
+                <option value="3">3</option>
+                <option value="3.5">3.5</option>
+                <option value="4">4</option>
+                <option value="4.5">4.5</option>
+                <option value="5">5</option>
+                <option value="5.5">5.5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="number-of-students">Max. Number of Kids:</label>
+              <input class="form-control" id="max-number-of-children"/>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class=" form-group col-md-12">
+            <a id="add-age-group-bttn">Add another age group +</a>
+          </div>
+        </div>
+        <script>
+          document.getElementById("add-age-group-bttn").addEventListener("click", function() {
+            var ageGroupDiv = document.getElementsByClassName("age-group-div")[0];
+            var newAgeGroupDiv = ageGroupDiv.cloneNode(true);
+            ageGroupDiv.parentElement.appendChild(newAgeGroupDiv);
+          });
+        </script>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
     </form>
   </div>
 </div>

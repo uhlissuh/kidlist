@@ -14,7 +14,7 @@ describe("createUser", function() {
       "ageGroups":[
         {"min_age": '0', "max_age": '6', "max_child_count": '43'},
         {"min_age": '6', "max_age": '18', "max_child_count": '43'}
-        ]
+      ]
     }, function(err, id) {
       assert.equal(err, null);
       database.getAgeGroups(id, function(err, ageGroups){

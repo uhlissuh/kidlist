@@ -1,6 +1,7 @@
 var pg = require('pg');
 var conString = "postgres://alissa:@localhost/kidlist";
 var bcrypt = require("bcrypt");
+var squel = require("squel");
 
 var SALT = '$2a$10$pmAjS4LJeLKXhKC9GutBl.';
 
@@ -16,9 +17,33 @@ exports.createUser = function(data, callback) {
         "insert into users (first_name, last_name, name_business, city, state, email, password_hash) values ($1, $2, $3, $4, $5, $6, $7) returning id",
         [data.first_name, data.last_name, data.biz_name, data.city, data.state, data.email, hash],
         function(err, result) {
+          var userId = result.rows[0].id;
+
+          var ageGroupRows = data.ageGroups.map(function(ageGroup) {
+            return {
+              user_id: userId,
+              min_age: ageGroup.min_age,
+              max_age: ageGroup.max_age,
+              max_child_count: ageGroup.max_child_count
+            };
+          })
+
+          // var ageGroupRows = [];
+          // for (var i = 0; i < data.ageGroups.length; i++) {
+          //   var ageGroup = data.ageGroups[i];
+          //
+          //   ageGroupRows.push({
+          //     user_id: result.rows[0].id,
+          //     min_age: ageGroup.min_age,
+          //     max_age: ageGroup.max_age,
+          //     max_child_count: ageGroup.max_child_count
+          //   });
+          // }
+
+          var query = squel.insert().into("age_groups").setFieldsRows(ageGroupRows).toString()
+
           client.query(
-            "insert into age_groups (user_id, min_age, max_age, max_child_count) values ($1, $2, $3, $4)",
-            [result.rows[0]["id"], data.ageGroups[0].min_age, data.ageGroups[0].max_age, data.ageGroups[0].max_child_count],
+            query,
             function(err) {
               callback(err, result.rows[0]["id"]);
               done();
@@ -63,8 +88,6 @@ exports.getAgeGroups = function(id, callback) {
       "select * from age_groups where user_id=$1",
       [id],
       function(err, result) {
-        console.log(id);
-        console.log(result.rows);
         callback(err, result.rows);
       }
     );

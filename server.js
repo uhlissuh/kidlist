@@ -35,7 +35,27 @@ app.get("/login", function(req, res) {
 });
 
 app.post("/join", function(req, res) {
-  database.createUser(req.body, function(err) {
+  var ageGroups = [];
+  for (i = 0; i < req.body.min_age.length; i++) {
+    var ageGroup = {
+      "min_age": req.body.min_age[i],
+      "max_age": req.body.max_age[i],
+      "max_child_count": req.body.max_child_count[i]
+    };
+    ageGroups.push(ageGroup);
+  }
+  var user = {
+    "first_name": req.body.first_name,
+    "last_name": req.body.last_name,
+    "biz_name": req.body.biz_name,
+    "city": req.body.city,
+    "state": req.body.state,
+    "email": req.body.email,
+    "password": req.body.password,
+    "confirm_password": req.body.confirm_password,
+    "ageGroups": ageGroups
+  };
+  database.createUser(user, function(err) {
     res.writeHead(301, {'location' : "/"});
     res.end();
   });

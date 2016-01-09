@@ -18,7 +18,11 @@ app.use(cookieParser(COOKIE_SIGNING_SECRET));
 app.use(express.static('public'));
 
 app.get("/", function(req, res) {
-  res.render('home');
+  if (req.signedCookies["user_id"]) {
+    res.render('dashboard');
+  } else {
+    res.render('home');
+  }  
 });
 
 app.get("/join", function(req, res) {

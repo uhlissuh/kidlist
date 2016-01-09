@@ -63,3 +63,7 @@
   z-index: -1;
   background-color: #F88379;
 }
+
+.nav-tabs {
+  margin-bottom: 40px;
+}

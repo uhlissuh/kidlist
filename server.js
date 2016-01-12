@@ -22,7 +22,7 @@ app.get("/", function(req, res) {
     res.render('dashboard');
   } else {
     res.render('home');
-  }  
+  }
 });
 
 app.get("/join", function(req, res) {
@@ -38,6 +38,10 @@ app.get("/login", function(req, res) {
   };
 });
 
+app.get("/children/new", function(req, res) {
+  res.render('new_child_form');
+});
+
 app.post("/join", function(req, res) {
   var ageGroups = [];
   for (i = 0; i < req.body.min_age.length; i++) {
@@ -48,6 +52,7 @@ app.post("/join", function(req, res) {
     };
     ageGroups.push(ageGroup);
   }
+
   var user = {
     "first_name": req.body.first_name,
     "last_name": req.body.last_name,

@@ -1,0 +1,95 @@
+<div class="dashboard-page">
+<div class="container">
+
+  <ul class="nav nav-tabs">
+    <li><a href="#">Enrollees</a></li>
+    <li><a href="#">Waiting Lists</a></li>
+    <li><a href="#">Search</a></li>
+  </ul>
+
+  <div class="col-md-8 col-md-offset-2">
+    <form class="new-child-form-box" method="post">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="child_first_name" >Child's First Name:</label>
+          <input class="form-control" type="text" name="child_first_name" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="child_last_name" >Child's Last Name:</label>
+          <input class="form-control" type="text" name="child_last_name" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="mother_first_name" >Mother's First Name:</label>
+          <input class="form-control" type="text" name="mother_first_name" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="mother_last_name" >Mother's Last Name:</label>
+          <input class="form-control" type="text" name="mother_last_name" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="father_first_name" >Father's First Name:</label>
+          <input class="form-control" type="text" name="father_first_name" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="father_last_name" >Father's Last Name:</label>
+          <input class="form-control" type="text" name="father_last_name" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="birthday" >Birthday</label>
+          <input class="form-control" type="text" name="birthday" placeholder="MM/DD/YYYY" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="enrollment_date" >Enrollment Date</label>
+          <input class="form-control" type="text" name="enrollment_date" placeholder="MM/DD/YYYY" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label>Anticipated departure date:</label>
+        </div>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="departure-radio" value="aging-out" checked>
+          Aging Out of Care
+        </label>
+      </div>
+      <div class="row">
+        <div class="radio col-md-3">
+          <label>
+            <input type="radio" name="departure-radio" value="custom-date">
+            Set a Custom Date:
+          </label>
+        </div>
+        <div class="col-md-3">
+          <input class="form-control" type="text" name="departure-date" placeholder="MM/DD/YYYY" disabled/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-12">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    var customDateRadioButton = document.querySelector("[value=custom-date]");
+    customDateRadioButton.addEventListener("change", function() {
+      document.querySelector("[name=departure-date]").disabled = false;
+    });
+
+    var birthdayRadioButton = document.querySelector("[value=aging-out]");
+    birthdayRadioButton.addEventListener("change", function() {
+      document.querySelector("[name=departure-date]").disabled = true;
+    });
+  </script>
+
+</div>
+</div>

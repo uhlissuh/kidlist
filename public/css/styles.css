@@ -67,3 +67,11 @@
 .nav-tabs {
   margin-bottom: 40px;
 }
+
+.new-child-form-box {
+  background: #F88379;
+  border-radius: 2px;
+  padding: 20px;
+  color: #fff;
+  border-radius: 15px;
+}

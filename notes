@@ -1,0 +1,8 @@
+finish fixing app.post join to parse info into a user
+
+write test for getAgeGroups function... describe createUser
+
+then create getagegroups function
+
+modify the createuser function to handle the age groups and
+hte new "user" format with hte age groups better organized

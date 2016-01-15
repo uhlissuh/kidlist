@@ -70,6 +70,23 @@ app.post("/join", function(req, res) {
   });
 });
 
+app.post("children/new", function(req, res) {
+  var userId = req.signedCookies(["user_id"]);
+  if (userId) {
+    database.createKid(userId, req.body, function(err) {
+      if(err) {
+        res.writeHead(500);
+        res.end("something went wrong");
+        return;
+      }
+      res.writeHead(301, {'location' : "/"});
+      res.end();
+    });
+  }
+  res.writeHead(403);
+  res.end("forbidden!");
+});
+
 app.post("/login", function (req, res) {
   database.signInUser(req.body, function(err, id) {
     if (id === null) {
@@ -80,7 +97,7 @@ app.post("/login", function (req, res) {
       res.writeHead( 302, { "Location": "/" });
     }
     res.end();
-  })
+  });
 });
 
 var server = http.createServer(app);

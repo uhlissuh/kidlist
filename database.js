@@ -26,19 +26,7 @@ exports.createUser = function(data, callback) {
               max_age: ageGroup.max_age,
               max_child_count: ageGroup.max_child_count
             };
-          })
-
-          // var ageGroupRows = [];
-          // for (var i = 0; i < data.ageGroups.length; i++) {
-          //   var ageGroup = data.ageGroups[i];
-          //
-          //   ageGroupRows.push({
-          //     user_id: result.rows[0].id,
-          //     min_age: ageGroup.min_age,
-          //     max_age: ageGroup.max_age,
-          //     max_child_count: ageGroup.max_child_count
-          //   });
-          // }
+          });
 
           var query = squel.insert().into("age_groups").setFieldsRows(ageGroupRows).toString()
 
@@ -54,6 +42,47 @@ exports.createUser = function(data, callback) {
     });
   });
 }
+
+exports.createKid = function(userId, data, callback) {
+  pg.connect(conString, function(err, client, done) {
+    if (err) {
+      callback(err);
+      return;
+    }
+    client.query(
+      "insert into kids (user_id, child_first_name, child_last_name, mother_first_name, mother_last_name, father_first_name, father_last_name, birthday, enrollment_date, departure_date) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+      [userId, data.child_first_name, data.child_last_name, data.mother_first_name,
+      data.mother_last_name, data.father_first_name, data.father_last_name,
+      data.birthday, data.enrollment_date, data.departure_date],
+      function(err) {
+          callback(err);
+          done();
+      }
+    );
+  });
+}
+
+exports.getKids = function(userId, callback) {
+  pg.connect(conString, function(err, client, done) {
+    if (err) {
+      callback(err);
+      return;
+    }
+    client.query(
+      "select * from kids where user_id=$1",
+      [userId],
+      function(err, result) {
+        if (err) {
+          callback(err);
+          return;
+        }
+        callback(err, result.rows);
+        done();
+      }
+    );
+  });
+}
+
 
 exports.signInUser = function(data, callback) {
   pg.connect(conString, function(err, client, done) {

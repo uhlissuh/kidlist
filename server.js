@@ -19,7 +19,14 @@ app.use(express.static('public'));
 
 app.get("/", function(req, res) {
   if (req.signedCookies["user_id"]) {
-    res.render('dashboard');
+    database.getKids(req.signedCookies["user_id"], function(err, result) {
+      var kids = result;
+      for(i = 0; i < kids.length; i++) {
+        var age = Math.round((Date.now() - kids[i].birthday)/31557600000);
+        kids[i].age = age;   
+      }
+      res.render('dashboard', {kids: kids});
+    });
   } else {
     res.render('home');
   }
@@ -35,7 +42,7 @@ app.get("/login", function(req, res) {
     res.render('login', {"error_message": "something"});
   } else {
     res.render('login');
-  };
+  }
 });
 
 app.get("/children/new", function(req, res) {
@@ -43,16 +50,6 @@ app.get("/children/new", function(req, res) {
 });
 
 app.post("/join", function(req, res) {
-  var ageGroups = [];
-  for (i = 0; i < req.body.min_age.length; i++) {
-    var ageGroup = {
-      "min_age": req.body.min_age[i],
-      "max_age": req.body.max_age[i],
-      "max_child_count": req.body.max_child_count[i]
-    };
-    ageGroups.push(ageGroup);
-  }
-
   var user = {
     "first_name": req.body.first_name,
     "last_name": req.body.last_name,
@@ -62,7 +59,6 @@ app.post("/join", function(req, res) {
     "email": req.body.email,
     "password": req.body.password,
     "confirm_password": req.body.confirm_password,
-    "ageGroups": ageGroups
   };
   database.createUser(user, function(err) {
     res.writeHead(301, {'location' : "/"});
@@ -70,9 +66,9 @@ app.post("/join", function(req, res) {
   });
 });
 
-app.post("children/new", function(req, res) {
-  var userId = req.signedCookies(["user_id"]);
-  if (userId) {
+app.post("/children/new", function(req, res) {
+  if (req.signedCookies["user_id"] != null) {
+    userId = req.signedCookies["user_id"];
     database.createKid(userId, req.body, function(err) {
       if(err) {
         res.writeHead(500);
@@ -82,9 +78,10 @@ app.post("children/new", function(req, res) {
       res.writeHead(301, {'location' : "/"});
       res.end();
     });
+  } else {
+    res.writeHead(403);
+    res.end("forbidden!");
   }
-  res.writeHead(403);
-  res.end("forbidden!");
 });
 
 app.post("/login", function (req, res) {

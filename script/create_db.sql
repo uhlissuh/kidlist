@@ -10,14 +10,6 @@
 --   password_hash varchar(255)
 -- );
 --
--- create table age_groups (
---   id serial primary key,
---   user_id int,
---   min_age int,
---   max_age int,
---   max_child_count int,
---   name varchar(255)
--- );
 
 create table kids (
   user_id varchar(255),

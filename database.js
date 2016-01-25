@@ -16,27 +16,9 @@ exports.createUser = function(data, callback) {
       client.query(
         "insert into users (first_name, last_name, name_business, city, state, email, password_hash) values ($1, $2, $3, $4, $5, $6, $7) returning id",
         [data.first_name, data.last_name, data.biz_name, data.city, data.state, data.email, hash],
-        function(err, result) {
-          var userId = result.rows[0].id;
-
-          var ageGroupRows = data.ageGroups.map(function(ageGroup) {
-            return {
-              user_id: userId,
-              min_age: ageGroup.min_age,
-              max_age: ageGroup.max_age,
-              max_child_count: ageGroup.max_child_count
-            };
-          });
-
-          var query = squel.insert().into("age_groups").setFieldsRows(ageGroupRows).toString()
-
-          client.query(
-            query,
-            function(err) {
-              callback(err, result.rows[0]["id"]);
-              done();
-            }
-          );
+        function(err) {
+          callback(err);
+          done();
         }
       );
     });
@@ -99,6 +81,8 @@ exports.signInUser = function(data, callback) {
             if (res === true) {
               var id = result.rows[0].id;
               callback(err, id);
+            } else {
+              callback(err, null);
             }
             done();
           });
@@ -107,18 +91,3 @@ exports.signInUser = function(data, callback) {
     )
   });
 }
-
-exports.getAgeGroups = function(id, callback) {
-  pg.connect(conString, function(err, client, done) {
-    if (err) {
-      return callback(err);
-    }
-    client.query(
-      "select * from age_groups where user_id=$1",
-      [id],
-      function(err, result) {
-        callback(err, result.rows);
-      }
-    );
-  });
-};

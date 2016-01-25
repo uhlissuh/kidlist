@@ -19,16 +19,15 @@
         <th>Age</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>John Carter</td>
-        <td>2.5</td>
-      </tr>
-      <tr>
-        <td>Peter Parker</td>
-        <td>3</td>
-      </tr>
-    </tbody>
+
+    {{#each kids}}
+    <tr>
+      <td>{{child_first_name}}
+          {{child_last_name}}</td>
+      <td>{{age}}</td>
+    </tr>
+    {{/each}}
+
   </table>
 
 </div>

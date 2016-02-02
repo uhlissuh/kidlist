@@ -13,7 +13,7 @@
   color: #F0693E;
 }
 
-.sign-in-link {
+.sign-in-link, .sign-out-link {
   margin-top: 15px;
   float: right;
   color: #F0693E;

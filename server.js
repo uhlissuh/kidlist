@@ -22,14 +22,23 @@ app.get("/", function(req, res) {
     database.getKids(req.signedCookies["user_id"], function(err, result) {
       var kids = result;
       for(i = 0; i < kids.length; i++) {
-        var age = Math.round((Date.now() - kids[i].birthday)/31557600000);
-        kids[i].age = age;   
+        var wholeAge = (Date.now() - kids[i].birthday)/31557600000;
+        var years = Math.floor(wholeAge);
+        var months = Math.round((Math.round((wholeAge % 1) * 10) / 10) * 12)
+        kids[i].years = years;
+        kids[i].months = months;
       }
       res.render('dashboard', {kids: kids});
     });
   } else {
-    res.render('home');
+    res.render('home', {layout: 'promo'});
   }
+});
+
+app.get("/signout", function(req, res) {
+  res.clearCookie("user_id");
+  res.writeHead(301, {'location' : "/"});
+  res.end();
 });
 
 app.get("/join", function(req, res) {
@@ -39,9 +48,9 @@ app.get("/join", function(req, res) {
 app.get("/login", function(req, res) {
   if (req.signedCookies["error_message"] != null) {
     res.clearCookie("error_message");
-    res.render('login', {"error_message": "something"});
+    res.render('login', {"error_message": "something", layout: 'promo'});
   } else {
-    res.render('login');
+    res.render('login', {layout: 'promo'});
   }
 });
 
@@ -69,8 +78,10 @@ app.post("/join", function(req, res) {
 app.post("/children/new", function(req, res) {
   if (req.signedCookies["user_id"] != null) {
     userId = req.signedCookies["user_id"];
+    console.log(req.body);
     database.createKid(userId, req.body, function(err) {
       if(err) {
+        console.log(err);
         res.writeHead(500);
         res.end("something went wrong");
         return;

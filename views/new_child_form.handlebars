@@ -40,13 +40,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-md-6">
-          <label for="birthday" >Birthday</label>
+        <div class="form-group col-md-6 birthday-danger-class">
+          <label class="control-label" for="birthday" >Birthday</label>
           <input class="form-control" type="text" name="birthday" placeholder="MM/DD/YYYY" />
+          <p class="text-muted birthday-danger" style="display: none; color: red">
+            You must enter a birthday.
+          </p>
         </div>
-        <div class="form-group col-md-6">
-          <label for="enrollment_date" >Enrollment Date</label>
+
+        <div class="form-group col-md-6 enrollment-danger-class">
+          <label class="control-label" for="enrollment_date" >Enrollment Date</label>
           <input class="form-control" type="text" name="enrollment_date" placeholder="MM/DD/YYYY" />
+          <p class="enrollment-danger text-muted" style="display: none; color: red">
+            You must enter an enrollment date.
+          </p>
         </div>
       </div>
       <div class="row">
@@ -60,7 +67,7 @@
           Aging Out of Care
         </label>
       </div>
-      <div class="row">
+      <div class="row custom-date-div">
         <div class="radio col-md-3">
           <label>
             <input type="radio" name="departure_radio" value="custom_date">
@@ -70,24 +77,54 @@
         <div class="col-md-3">
           <input class="form-control" type="text" name="departure_date" placeholder="MM/DD/YYYY" disabled/>
         </div>
+        <p class="departure-danger text-muted" style="display: none; color: red">
+          You must enter a departure date if you choose the "Custom Date" option.
+        </p>
       </div>
+
       <div class="row">
         <div class="form-group col-md-12">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button name="submitButton" type="submit" class="btn btn-primary">Submit</button>
         </div>
       </div>
     </form>
   </div>
 
   <script>
-    var customDateRadioButton = document.querySelector("[value=custom-date]");
+    var customDateRadioButton = document.querySelector("[value=custom_date]");
     customDateRadioButton.addEventListener("change", function() {
-      document.querySelector("[name=departure-date]").disabled = false;
+      document.querySelector("[name=departure_date]").disabled = false;
+    });
+    var birthdayRadioButton = document.querySelector("[value=aging_out]");
+    birthdayRadioButton.addEventListener("change", function() {
+      document.querySelector("[name=departure_date]").disabled = true;
     });
 
-    var birthdayRadioButton = document.querySelector("[value=aging-out]");
-    birthdayRadioButton.addEventListener("change", function() {
-      document.querySelector("[name=departure-date]").disabled = true;
+    var form = document.querySelector("form");
+    var birthdayInput = document.querySelector("[name=birthday]");
+    var enrollmentInput = document.querySelector("[name=enrollment_date]");
+    var departureInput = document.querySelector("[name=departure_date]");
+    var birthdayClass = document.querySelector(".birthday-danger-class");
+    var birthdayDanger = document.querySelector(".birthday-danger");
+    var enrollmentDanger = document.querySelector(".enrollment-danger");
+    var enrollmentClass = document.querySelector(".enrollment-danger-class");
+    var departureDanger = document.querySelector(".departure-danger");
+    var departureClass = document.querySelector(".custom-date-div");
+
+    form.addEventListener("submit", function(event) {
+      if (birthdayInput.value === "") {
+        event.preventDefault();
+        birthdayDanger.style.display = "";
+        birthdayClass.classList.add('has-error');
+      } else if (enrollmentInput.value === "") {
+        event.preventDefault();
+        enrollmentDanger.style.display = "";
+        enrollmentClass.classList.add('has-error');
+      } else if (departureInput.disabled === false && departureInput.value === "") {
+        event.preventDefault();
+        departureDanger.style.display= "";
+        departureClass.classList.add('has-error');
+      }
     });
   </script>
 

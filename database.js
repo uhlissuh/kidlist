@@ -16,8 +16,8 @@ exports.createUser = function(data, callback) {
       client.query(
         "insert into users (first_name, last_name, name_business, city, state, email, password_hash) values ($1, $2, $3, $4, $5, $6, $7) returning id",
         [data.first_name, data.last_name, data.biz_name, data.city, data.state, data.email, hash],
-        function(err) {
-          callback(err);
+        function(err, result) {
+          callback(err, result.rows[0].id);
           done();
         }
       );
@@ -47,47 +47,89 @@ exports.createKid = function(userId, data, callback) {
 exports.getKids = function(userId, callback) {
   pg.connect(conString, function(err, client, done) {
     if (err) {
+      done();
       callback(err);
       return;
     }
+
     client.query(
       "select * from kids where user_id=$1",
       [userId],
       function(err, result) {
+        done();
+
         if (err) {
           callback(err);
           return;
         }
+
         callback(err, result.rows);
-        done();
       }
     );
   });
 }
 
-
 exports.signInUser = function(data, callback) {
   pg.connect(conString, function(err, client, done) {
+    if (err) {
+      done();
+      callback(err);
+      return;
+    }
+
     client.query(
       "select * from users where email=$1 limit 1",
       [data.email],
       function(err, result) {
+        done();
+
         if (err) {
-          console.log(err);
-        } else if (result.rows.length === 0) {
-          callback(err, null);
+          callback(err);
+          return;
+        }
+
+        if (result.rows.length === 0) {
+          callback(null, null);
         } else {
-          bcrypt.compare(data.password, result.rows[0].password_hash, function(err, res) {
-            if (res === true) {
+          bcrypt.compare(data.password, result.rows[0].password_hash, function(err, matches) {
+            if (matches) {
               var id = result.rows[0].id;
               callback(err, id);
             } else {
               callback(err, null);
             }
-            done();
           });
         }
       }
     )
+  });
+}
+
+exports.truncate = function(callback) {
+  pg.connect(conString, function(err, client, done) {
+    if (err) {
+      done();
+      callback(err);
+      return;
+    }
+
+    client.query(
+      "truncate table users",
+      function(err) {
+        if (err) {
+          done();
+          callback(err);
+          return;
+        }
+
+        client.query(
+          "truncate table kids",
+          function(err) {
+            done();
+            callback(err);
+          }
+        );
+      }
+    );
   });
 }

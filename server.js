@@ -42,7 +42,7 @@ app.get("/signout", function(req, res) {
 });
 
 app.get("/join", function(req, res) {
-  res.render('join');
+  res.render('join', {layout: 'promo'});
 });
 
 app.get("/login", function(req, res) {
@@ -69,7 +69,8 @@ app.post("/join", function(req, res) {
     "password": req.body.password,
     "confirm_password": req.body.confirm_password,
   };
-  database.createUser(user, function(err) {
+  database.createUser(user, function(err, id) {
+    res.cookie("user_id", id, {signed: true});
     res.writeHead(301, {'location' : "/"});
     res.end();
   });

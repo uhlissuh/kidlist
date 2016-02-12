@@ -1,6 +1,8 @@
 var database = require('../database.js');
 var assert = require('assert');
 
+database.setURL("postgres://alissa:@localhost/kidlist_test");
+
 describe("createKid", function() {
   beforeEach(function(done) {
     database.truncate(done);

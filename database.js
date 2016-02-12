@@ -1,9 +1,13 @@
 var pg = require('pg');
-var conString = "postgres://alissa:@localhost/kidlist";
 var bcrypt = require("bcrypt");
 var squel = require("squel");
 
 var SALT = '$2a$10$pmAjS4LJeLKXhKC9GutBl.';
+
+var conString = null;
+exports.setURL = function(url) {
+  conString = url;
+};
 
 exports.createUser = function(data, callback) {
   pg.connect(conString, function(err, client, done) {

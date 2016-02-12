@@ -5,7 +5,7 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var handlebars = require("express-handlebars");
 var database = require("./database");
-
+database.setURL("postgres://alissa:@localhost/kidlist");
 var app = express();
 
 var COOKIE_SIGNING_SECRET = "the-cookie-signing-secret";

@@ -75,3 +75,8 @@
   color: #fff;
   border-radius: 15px;
 }
+
+.week-select-container {
+  display: inline-block;
+  width: 100px;
+}

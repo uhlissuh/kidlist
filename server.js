@@ -79,7 +79,6 @@ app.post("/join", function(req, res) {
 app.post("/children/new", function(req, res) {
   if (req.signedCookies["user_id"] != null) {
     userId = req.signedCookies["user_id"];
-    console.log(req.body);
     database.createKid(userId, req.body, function(err) {
       if(err) {
         console.log(err);

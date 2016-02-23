@@ -30,16 +30,33 @@ exports.createUser = function(data, callback) {
 }
 
 exports.createKid = function(userId, data, callback) {
+  var days_attending = {
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false
+  }
+
+  for (var i = 0; i < data.days_attending.length; i++) {
+    days_attending[data.days_attending[i]] = true;
+  }
+
   pg.connect(conString, function(err, client, done) {
     if (err) {
+      done();
       callback(err);
       return;
     }
     client.query(
-      "insert into kids (user_id, child_first_name, child_last_name, mother_first_name, mother_last_name, father_first_name, father_last_name, birthday, enrollment_date, departure_date) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+      "insert into kids (user_id, child_first_name, child_last_name, mother_first_name, mother_last_name," +
+      "father_first_name, father_last_name, birthday, enrollment_date, departure_date," +
+      "attends_monday, attends_tuesday, attends_wednesday, attends_thursday, attends_friday)" +
+      "values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)",
       [userId, data.child_first_name, data.child_last_name, data.mother_first_name,
       data.mother_last_name, data.father_first_name, data.father_last_name,
-      data.birthday, data.enrollment_date, data.departure_date],
+      data.birthday, data.enrollment_date, data.departure_date,
+      days_attending.monday, days_attending.tuesday, days_attending.wednesday, days_attending.thursday, days_attending.friday],
       function(err) {
           callback(err);
           done();

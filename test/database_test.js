@@ -18,12 +18,18 @@ describe("createKid", function() {
       "father_last_name": "Smith",
       "birthday": new Date(2015, 06, 24),
       "enrollment_date": new Date(2015, 09, 15),
-      "departure_date": new Date(2016, 09, 25)
+      "departure_date": new Date(2016, 09, 25),
+      "days_attending": ["monday", "tuesday"]
     }, function(err) {
       assert.equal(err, null);
       database.getKids(32, function(err, kids) {
         assert.equal(err, null);
         assert.equal(kids[0].child_first_name, "Jimmy");
+        assert.equal(kids[0].attends_monday, true);
+        assert.equal(kids[0].attends_tuesday, true);
+        assert.equal(kids[0].attends_wednesday, false);
+        assert.equal(kids[0].attends_thursday, false);
+        assert.equal(kids[0].attends_friday, false);
         done();
       });
     });

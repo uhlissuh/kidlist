@@ -5,13 +5,19 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var handlebars = require("express-handlebars");
 var database = require("./database");
+var dashboardView = require('./views/dashboard_view');
 database.setURL("postgres://alissa:@localhost/kidlist");
 var app = express();
 
 var COOKIE_SIGNING_SECRET = "the-cookie-signing-secret";
 
-app.engine('handlebars', handlebars({defaultLayout: 'main'}));
+app.set('views', __dirname + '/templates');
 app.set('view engine', 'handlebars');
+
+app.engine('handlebars', handlebars({
+  defaultLayout: 'main',
+  layoutsDir: __dirname + '/templates/layouts'
+}));
 
 app.use(bodyParser.urlencoded());
 app.use(cookieParser(COOKIE_SIGNING_SECRET));
@@ -20,15 +26,7 @@ app.use(express.static('public'));
 app.get("/", function(req, res) {
   if (req.signedCookies["user_id"]) {
     database.getKids(req.signedCookies["user_id"], function(err, result) {
-      var kids = result;
-      for(i = 0; i < kids.length; i++) {
-        var wholeAge = (Date.now() - kids[i].birthday)/31557600000;
-        var years = Math.floor(wholeAge);
-        var months = Math.round((Math.round((wholeAge % 1) * 10) / 10) * 12)
-        kids[i].years = years;
-        kids[i].months = months;
-      }
-      res.render('dashboard', {kids: kids});
+      res.render('dashboard', dashboardView(result, new Date()));
     });
   } else {
     res.render('home', {layout: 'promo'});

@@ -1,9 +1,11 @@
-module.exports = function(kids, today) {
+module.exports = function(kids, today, query) {
   var mondayCount = 0;
   var tuesdayCount = 0;
   var wednesdayCount = 0;
   var thursdayCount = 0;
   var fridayCount = 0;
+  var waiting = query.state === 'waiting';
+  var attending = !waiting;
 
   for(i = 0; i < kids.length; i++) {
     var wholeAge = (Date.now() - kids[i].birthday)/31557600000;
@@ -31,14 +33,16 @@ module.exports = function(kids, today) {
     if (kids[i].attends_friday) {
       fridayCount += 1;
     }
-
   }
+
   return {
     kids: kids,
     mondayCount: mondayCount,
     tuesdayCount: tuesdayCount,
     wednesdayCount: wednesdayCount,
     thursdayCount: thursdayCount,
-    fridayCount: fridayCount
+    fridayCount: fridayCount,
+    attending: attending,
+    waiting: waiting
   };
 }

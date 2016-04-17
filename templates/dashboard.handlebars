@@ -3,7 +3,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-10">
       <h4>Week of
         <div class="week-select-container">
           <select class="form-control">
@@ -23,7 +23,14 @@
           </select>
         </div>
       </h4>
+    </div>
+      <div class="col-md-2">
+        <a href="children/new" type="button" class="btn btn-default">Add Child +</a>
+      </div>
+  </div>
 
+  <div class="row">
+    <div class="col-md-12">
       <table class="table">
         <thead>
           <tr>
@@ -36,22 +43,21 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{mondayCount}} attending</td>
-            <td>{{tuesdayCount}} attending</td>
-            <td>{{wednesdayCount}} attending</td>
-            <td>{{thursdayCount}} attending</td>
-            <td>{{fridayCount}} attending</td>
+            <td><a href="?day=monday">{{mondayCount}} attending</a></td>
+            <td><a href="?day=tuesday">{{tuesdayCount}} attending</a></td>
+            <td><a href="?day=wednesday">{{wednesdayCount}} attending</a></td>
+            <td><a href="?day=thursday">{{thursdayCount}} attending</a></td>
+            <td><a href="?day=friday">{{fridayCount}} attending</a></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <a href="children/new" type="button" class="btn btn-default">Add Child +</a>
-    </div>
-  </div>
+  <ul class="nav nav-tabs">
+    <li {{#if attending}}class="active"{{/if}}><a href="/">Attending</a></li>
+    <li {{#if waiting}}class="active"{{/if}}><a href="?state=waiting">Waiting</a></li>
+  </ul>
 
   <table class="table table-hover">
     <thead>

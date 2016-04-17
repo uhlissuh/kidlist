@@ -26,7 +26,7 @@ app.use(express.static('public'));
 app.get("/", function(req, res) {
   if (req.signedCookies["user_id"]) {
     database.getKids(req.signedCookies["user_id"], function(err, result) {
-      res.render('dashboard', dashboardView(result, new Date()));
+      res.render('dashboard', dashboardView(result, new Date(), req.query));
     });
   } else {
     res.render('home', {layout: 'promo'});

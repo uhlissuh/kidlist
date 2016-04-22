@@ -1,4 +1,4 @@
-module.exports = function(kids, today, query) {
+module.exports = function(allKids, today, query) {
   var mondayCount = 0;
   var tuesdayCount = 0;
   var wednesdayCount = 0;
@@ -6,31 +6,46 @@ module.exports = function(kids, today, query) {
   var fridayCount = 0;
   var waiting = query.state === 'waiting';
   var attending = !waiting;
+  var kids = [];
 
-  for(i = 0; i < kids.length; i++) {
-    var wholeAge = (Date.now() - kids[i].birthday)/31557600000;
-    var years = Math.floor(wholeAge);
-    var months = Math.round((Math.round((wholeAge % 1) * 10) / 10) * 12)
-    kids[i].ageInYears = years;
-    kids[i].ageInMonths = months;
+  for(i = 0; i < allKids.length; i++) {
+    var kid = allKids[i];
+    var ageTotalMonths = ((today.getFullYear()- kid.birthday.getFullYear())  * 12)
+     + (today.getMonth() - kid.birthday.getMonth());
+    kid.ageInYears = Math.floor(ageTotalMonths / 12);
+    kid.ageInMonths = ageTotalMonths % 12;
 
-    if (kids[i].attends_monday) {
+    if (query.day === 'monday' && kid.attends_monday) {
+      kids.push(kid);
+    } else if (query.day === 'tuesday' && kid.attends_tuesday) {
+      kids.push(kid);
+    }else if (query.day === 'wednesday' && kid.attends_wednesday) {
+      kids.push(kid);
+    } else if (query.day === 'thursday' && kid.attends_thursday) {
+      kids.push(kid);
+    } else if (query.day === 'friday' && kid.attends_friday) {
+      kids.push(kid);
+    } else if (!query.day) {
+      kids.push(kid);
+    }
+
+    if (kid.attends_monday) {
       mondayCount += 1;
     }
 
-    if (kids[i].attends_tuesday) {
+    if (kid.attends_tuesday) {
       tuesdayCount += 1;
     }
 
-    if (kids[i].attends_wednesday) {
+    if (kid.attends_wednesday) {
       wednesdayCount += 1;
     }
 
-    if (kids[i].attends_thursday) {
+    if (kid.attends_thursday) {
       thursdayCount += 1;
     }
 
-    if (kids[i].attends_friday) {
+    if (kid.attends_friday) {
       fridayCount += 1;
     }
   }

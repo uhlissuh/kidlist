@@ -11,7 +11,7 @@ describe("dashboardView", function() {
         mother_last_name:"Socrates",
         father_first_name: "Gil",
         father_last_name: "Socrates",
-        birthday: new Date(2014, 8, 15),
+        birthday: new Date(2014, 1, 1),
         enrollment_date: new Date(2016, 1, 1),
         departure_date: null,
         attends_monday: true,
@@ -37,10 +37,13 @@ describe("dashboardView", function() {
         attends_friday: true
       },
     ];
-    var view = dashboardView(kids, new Date(2016, 2, 3));
+
+    var query = {};
+
+    var view = dashboardView(kids, new Date(2016, 3, 4), query);
     assert.equal(view.kids.length, 2);
-    assert.equal(view.kids[0].ageInYears, 1);
-    assert.equal(view.kids[0].ageInMonths, 6);
+    assert.equal(view.kids[0].ageInYears, 2);
+    assert.equal(view.kids[0].ageInMonths, 2);
     assert.equal(view.mondayCount, 2);
     assert.equal(view.tuesdayCount, 1);
     assert.equal(view.wednesdayCount, 2);

@@ -7,6 +7,30 @@ module.exports = function(allKids, today, query) {
   var waiting = query.state === 'waiting';
   var attending = !waiting;
   var kids = [];
+  var monday = false;
+  var tuesday = false;
+  var wednesday = false;
+  var thursday = false;
+  var friday = false;
+
+
+
+  if (query.day === 'monday') {
+    monday = true;
+  }
+  if (query.day === 'tuesday') {
+    tuesday = true;
+  }
+  if (query.day === 'wednesday') {
+    wednesday = true;
+  }
+  if (query.day === 'thursday') {
+    thursday = true;
+  }
+  if (query.day === 'friday') {
+    friday = true;
+  }
+
 
   for(i = 0; i < allKids.length; i++) {
     var kid = allKids[i];
@@ -32,19 +56,15 @@ module.exports = function(allKids, today, query) {
     if (kid.attends_monday) {
       mondayCount += 1;
     }
-
     if (kid.attends_tuesday) {
       tuesdayCount += 1;
     }
-
     if (kid.attends_wednesday) {
       wednesdayCount += 1;
     }
-
     if (kid.attends_thursday) {
       thursdayCount += 1;
     }
-
     if (kid.attends_friday) {
       fridayCount += 1;
     }
@@ -58,6 +78,11 @@ module.exports = function(allKids, today, query) {
     thursdayCount: thursdayCount,
     fridayCount: fridayCount,
     attending: attending,
-    waiting: waiting
+    waiting: waiting,
+    monday: monday,
+    tuesday: tuesday,
+    wednesday: wednesday,
+    thursday: thursday,
+    friday: friday
   };
 }

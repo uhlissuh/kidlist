@@ -43,11 +43,11 @@
         </thead>
         <tbody>
           <tr>
-            <td><a {{#if monday}}class="day-selected"{{/if}} href="?day=monday">{{mondayCount}} attending</a></td>
-            <td><a {{#if tuesday}}class="day-selected"{{/if}}href="?day=tuesday">{{tuesdayCount}} attending</a></td>
-            <td><a {{#if wednesday}}class="day-selected"{{/if}}href="?day=wednesday">{{wednesdayCount}} attending</a></td>
-            <td><a {{#if thursday}}class="day-selected"{{/if}}href="?day=thursday">{{thursdayCount}} attending</a></td>
-            <td><a {{#if friday}}class="day-selected"{{/if}}href="?day=friday">{{fridayCount}} attending</a></td>
+            <td><a {{#if activeDay.monday}}class="day-selected"{{/if}} href="?day=monday">{{mondayCount}} attending</a></td>
+            <td><a {{#if activeDay.tuesday}}class="day-selected"{{/if}}href="?day=tuesday">{{tuesdayCount}} attending</a></td>
+            <td><a {{#if activeDay.wednesday}}class="day-selected"{{/if}}href="?day=wednesday">{{wednesdayCount}} attending</a></td>
+            <td><a {{#if activeDay.thursday}}class="day-selected"{{/if}}href="?day=thursday">{{thursdayCount}} attending</a></td>
+            <td><a {{#if activeDay.friday}}class="day-selected"{{/if}}href="?day=friday">{{fridayCount}} attending</a></td>
           </tr>
         </tbody>
       </table>

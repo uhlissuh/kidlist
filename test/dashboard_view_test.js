@@ -2,8 +2,10 @@ var dashboardView = require('../views/dashboard_view')
 var assert = require('assert');
 
 describe("dashboardView", function() {
-  it("returns the data for the dashboard page", function() {
-    var kids = [
+  var kids;
+
+  beforeEach(function() {
+    kids = [
       {
         child_first_name: "Lenny",
         child_last_name: "Socrates",
@@ -37,7 +39,9 @@ describe("dashboardView", function() {
         attends_friday: true
       },
     ];
+  });
 
+  it("returns the data for the dashboard page", function() {
     var query = {};
 
     var view = dashboardView(kids, new Date(2016, 3, 4), query);
@@ -49,5 +53,14 @@ describe("dashboardView", function() {
     assert.equal(view.wednesdayCount, 2);
     assert.equal(view.thursdayCount, 1);
     assert.equal(view.fridayCount, 2);
+  });
+
+  it("can filter the kids by the day they attend", function() {
+    var query = {day: "tuesday"};
+    var view = dashboardView(kids, new Date(2016, 3, 4), query);
+
+    assert.equal(view.activeDay.tuesday, true);
+    assert.equal(view.kids[0].child_first_name, "Jimmy");
+    assert.equal(view.kids.length, 1);
   });
 })

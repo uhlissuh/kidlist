@@ -1,3 +1,11 @@
+var WEEKDAYS = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday'
+];
+
 module.exports = function(allKids, today, query) {
   var mondayCount = 0;
   var tuesdayCount = 0;
@@ -7,30 +15,33 @@ module.exports = function(allKids, today, query) {
   var waiting = query.state === 'waiting';
   var attending = !waiting;
   var kids = [];
-  var monday = false;
-  var tuesday = false;
-  var wednesday = false;
-  var thursday = false;
-  var friday = false;
 
+  var activeDay = {};
+  WEEKDAYS.forEach(function(weekday) {
+    activeDay[weekday] = (query.day === weekday);
+  });
 
-
-  if (query.day === 'monday') {
-    monday = true;
-  }
-  if (query.day === 'tuesday') {
-    tuesday = true;
-  }
-  if (query.day === 'wednesday') {
-    wednesday = true;
-  }
-  if (query.day === 'thursday') {
-    thursday = true;
-  }
-  if (query.day === 'friday') {
-    friday = true;
-  }
-
+  // var monday = false;
+  // var tuesday = false;
+  // var wednesday = false;
+  // var thursday = false;
+  // var friday = false;
+  //
+  // if (query.day === 'monday') {
+  //   monday = true;
+  // }
+  // if (query.day === 'tuesday') {
+  //   tuesday = true;
+  // }
+  // if (query.day === 'wednesday') {
+  //   wednesday = true;
+  // }
+  // if (query.day === 'thursday') {
+  //   thursday = true;
+  // }
+  // if (query.day === 'friday') {
+  //   friday = true;
+  // }
 
   for(i = 0; i < allKids.length; i++) {
     var kid = allKids[i];
@@ -79,10 +90,11 @@ module.exports = function(allKids, today, query) {
     fridayCount: fridayCount,
     attending: attending,
     waiting: waiting,
-    monday: monday,
-    tuesday: tuesday,
-    wednesday: wednesday,
-    thursday: thursday,
-    friday: friday
+    activeDay: activeDay
+    // monday: monday,
+    // tuesday: tuesday,
+    // wednesday: wednesday,
+    // thursday: thursday,
+    // friday: friday
   };
 }
